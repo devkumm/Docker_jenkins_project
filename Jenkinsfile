@@ -26,5 +26,11 @@ pipeline {
         sh 'docker exec -i test_image date'
       }
     }
+   stage('Cleanup') {  // Added Cleanup stage
+      steps {
+        sh 'docker stop test_image'
+        sh 'docker rm test_image'
+      }
+    }
   }
 }
