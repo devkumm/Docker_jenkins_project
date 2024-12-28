@@ -16,5 +16,10 @@ pipeline {
         }
       }
     }
+   stage('Run Container') {  
+      steps {
+        sh 'docker run -dit --name test_image $DOCKER_BFLASK_IMAGE'
+      }
+    }
   }
 }
