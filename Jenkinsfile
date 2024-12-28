@@ -21,5 +21,10 @@ pipeline {
         sh 'docker run -dit --name test_image $DOCKER_BFLASK_IMAGE'
       }
     }
+   stage('Verify Container') {
+      steps {
+        sh 'docker exec -i test_image date'
+      }
+    }
   }
 }
