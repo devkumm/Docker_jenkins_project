@@ -18,7 +18,7 @@ pipeline {
     }
    stage('Run Container') {  
       steps {
-        sh 'docker run -dit --name test_image1 $DOCKER_BFLASK_IMAGE'
+        sh 'docker run -dit --name test_image $DOCKER_BFLASK_IMAGE'
       }
     }
    stage('Verify Container') {
