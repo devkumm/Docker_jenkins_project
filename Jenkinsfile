@@ -43,7 +43,7 @@ pipeline {
                 -e "s|{{NAMESPACE}}|${namespace}|g" \
                 -e "s|{{PULL_IMAGE}}|${DOCKER_BFLASK_IMAGE}|g" \
                 ${manifestFile} \
-            | kubectl --kubeconfig=${Kube_config} apply -f -
+            | kubectl apply -f -
             """
           }
         }

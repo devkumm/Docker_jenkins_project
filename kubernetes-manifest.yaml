@@ -35,7 +35,7 @@ spec:
       - name: helloworld
         ports:
         - containerPort: 9094
-        image: {{test_image}}
+        image: {{PULL_IMAGE}}
         imagePullPolicy: IfNotPresent
         resources:
           limits:
