@@ -45,7 +45,7 @@ environment {
                             -e "s|{{NAMESPACE}}|${K8S_NAMESPACE}|g" \
                             -e "s|{{PULL_IMAGE}}|${DOCKER_BFLASK_IMAGE}|g" \
                             ${MANIFEST_FILE} \
-                        | kubectl apply -f -
+                        | kubectl apply -f - --validate=false
                         """
           }
         }
