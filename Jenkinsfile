@@ -1,5 +1,3 @@
- def manifestFile = 'kubernetes-manifest.yaml'
- def namespace = 'default'
 pipeline {
   agent any
 environment {
