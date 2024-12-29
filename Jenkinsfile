@@ -2,7 +2,11 @@
  def namespace = 'default'
 pipeline {
   agent any
-
+environment {
+        K8S_NAMESPACE = 'default' // Kubernetes namespace
+        MANIFEST_FILE = 'kubernetes-manifest.yaml' // Kubernetes manifest file
+       // DOCKER_IMAGE = 'env.DOCKER_BFLASK_IMAGE'  // Fallback Docker image
+    }
   stages {
     stage('Build') {
       steps {
@@ -38,13 +42,13 @@ pipeline {
       steps {
         withCredentials([file(credentialsId: '43f13e92-4bbb-4c64-b13f-4502bdf7f74b', variable: 'Kube_config')]) {
           script {
-            sh """
-            sed \
-                -e "s|{{NAMESPACE}}|${namespace}|g" \
-                -e "s|{{PULL_IMAGE}}|${DOCKER_BFLASK_IMAGE}|g" \
-                ${manifestFile} \
-            | kubectl apply -f -
-            """
+           sh """
+                        sed \
+                            -e "s|{{NAMESPACE}}|${K8S_NAMESPACE}|g" \
+                            -e "s|{{PULL_IMAGE}}|${DOCKER_BFLASK_IMAGE}|g" \
+                            ${MANIFEST_FILE} \
+                        | kubectl apply -f -
+                        """
           }
         }
       }
