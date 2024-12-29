@@ -1,3 +1,5 @@
+ def manifestFile = 'kubernetes-manifest.yaml'
+ def namespace = 'default'
 pipeline {
   agent any
 
@@ -30,6 +32,21 @@ pipeline {
       steps {
         sh 'docker stop test_image'
         sh 'docker rm test_image'
+      }
+    }
+   stage('Apply Kubernetes manifest') {  // New stage added
+      steps {
+        withCredentials([file(credentialsId: '43f13e92-4bbb-4c64-b13f-4502bdf7f74b', variable: 'Kube_config')]) {
+          script {
+            sh """
+            sed \
+                -e "s|{{NAMESPACE}}|${namespace}|g" \
+                -e "s|{{PULL_IMAGE}}|${IMAGE_BRANCH_TAG}|g" \
+                ${manifestFile} \
+            | kubectl --kubeconfig=${Kube_config} apply -f -
+            """
+          }
+        }
       }
     }
   }
