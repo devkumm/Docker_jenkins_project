@@ -18,6 +18,12 @@ pipeline {
         }
       }
     }
+   stage('Cleanup') {
+      steps {
+        sh 'docker stop test_image'
+        sh 'docker rm test_image'
+      }
+    }
    stage('Run Container') {  
       steps {
         sh 'docker run -dit --name test_image $DOCKER_BFLASK_IMAGE'
