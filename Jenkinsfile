@@ -25,16 +25,16 @@ pipeline {
     }
    stage('Verify Container') {
       steps {
-        sh 'docker exec -i test_image date'
+        sh 'docker exec -i test_image uptime'
       }
     }
-   stage('Cleanup') {  // Added Cleanup stage
+   stage('Cleanup') {
       steps {
         sh 'docker stop test_image'
         sh 'docker rm test_image'
       }
     }
-   stage('Apply Kubernetes manifest') {  // New stage added
+   stage('Apply Kubernetes manifest') {
       steps {
         withCredentials([file(credentialsId: '43f13e92-4bbb-4c64-b13f-4502bdf7f74b', variable: 'Kube_config')]) {
           script {
