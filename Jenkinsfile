@@ -41,7 +41,7 @@ pipeline {
             sh """
             sed \
                 -e "s|{{NAMESPACE}}|${namespace}|g" \
-                -e "s|{{PULL_IMAGE}}|${IMAGE_BRANCH_TAG}|g" \
+                -e "s|{{PULL_IMAGE}}|${DOCKER_BFLASK_IMAGE}|g" \
                 ${manifestFile} \
             | kubectl --kubeconfig=${Kube_config} apply -f -
             """
