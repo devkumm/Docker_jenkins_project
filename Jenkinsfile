@@ -34,7 +34,7 @@ pipeline {
         sh 'docker exec -i test_image uptime'
       }
     }
-   stage('Cleanup') {
+   stage('Cleanup1') {
       steps {
         sh 'docker stop test_image'
         sh 'docker rm test_image'
